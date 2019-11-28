@@ -9,6 +9,7 @@ from timeit import default_timer
 
 tosdb.init(dllpath=r"C:\TOSDataBridge\bin\Release\x64\tos-databridge-0.9-x64.dll")
 block = tosdb.TOSDB_DataBlock(100000, True)
+ohlcblock = ohlc.tosdb.TOSDB_ThreadSafeDataBlock(100000)
 block.add_items("/MES:XCME", "/MYM:XCBT")
 block.add_topics(
     "OPEN",
@@ -25,8 +26,6 @@ block.add_topics(
     "CUSTOM5",
     "CUSTOM9",
 )
-### NOTICE WE ARE SLEEPING TO ALLOW DATA TO GET INTO BLOCK ###
-print("Sleeping for 2 second")
 time.sleep(2)
 
 
@@ -35,8 +34,7 @@ def getLastPrice(symbol):
 
 
 def tosDBohlc():
-    block = ohlc.tosdb.TOSDB_ThreadSafeDataBlock(10000)
-    intrv = ohlc.TOSDB_OpenHighLowCloseIntervals(block, 60)
+    intrv = ohlc.TOSDB_OpenHighLowCloseIntervals(ohlcblock, 60)
     print(intrv.get("/ES:XCME", "OPEN"))
     tosdb.clean_up()
 
@@ -63,20 +61,25 @@ def tosVolTrailingStopSTUDY(symbol):
 def tosPlotChart():
     pass
 
-    def tosPlotChart():
-        pass
+def tosPlotChart():
+    pass
 
-    def buyPos(self):
-        pass
+def buyPos():
+    pass
 
-    def sellPos(self):
-        pass
+def sellPos():
+    pass
 
-    def reversePos(self):
-        pass
+def reversePos():
+    pass
 
-    def flattenPos(self):
-        pass
+def flattenPos():
+    pass
+
+def writeCSV():
+    with open('tradelog.csv','a', newline='') as newFile:
+    newFileWriter = csv.writer(newFile)
+    newFileWriter.writerow([1, 'test'])
 
 
 position_taken = 0  # Position is open or closed
