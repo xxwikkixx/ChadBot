@@ -5,9 +5,8 @@ from threading import Thread
 
 tosdb.init(dllpath=r"C:\TOSDataBridge\bin\Release\x64\tos-databridge-0.9-x64.dll")
 
-class TradeBot(Thread):
+class TradeBot:
     def __init__(self, ticker):
-        Thread.__init__(self)
         self.ticker = ticker
         self.block = tosdb.TOSDB_DataBlock(100000, True)
         self.ohlcblock = ohlc.tosdb.TOSDB_ThreadSafeDataBlock(100000)
@@ -47,9 +46,9 @@ class TradeBot(Thread):
     def tosVolTrailingStopSTUDY(self):
         val, times = self.block.get(self.ticker, "CUSTOM5", date_time=True)
         if val == "1.0":
-            return True
+            return "Long"
         elif val == "-1.0":
-            return False
+            return "Short"
         tosdb.clean_up()
 
     def tosPlotChart(self):
@@ -68,9 +67,7 @@ class TradeBot(Thread):
         pass
 
 MES = TradeBot("/MES:XCME")
-MYM = TradeBot("/MYM:XCBT")
-MES.start()
-MYM.start()
+# MYM = TradeBot("/MYM:XCBT")
 
-print(MES.getLastPrice())
-print(MYM.getLastPrice())
+print(MES.tosOHLCMinute())
+

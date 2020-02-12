@@ -30,7 +30,8 @@ time.sleep(2)
 
 
 def getLastPrice(symbol):
-    return block.get(symbol, "LAST", date_time=True)
+    return block.get(symbol, "LAST")
+    # return block.get(symbol, "LAST", date_time=True)
 
 
 def tosDBohlc():
@@ -39,8 +40,8 @@ def tosDBohlc():
     tosdb.clean_up()
 
 
-def tosOHLCMinute():
-    val = block.get("/MES:XCME", "CUSTOM9", date_time=False)
+def tosOHLCMinute(symbol):
+    val = block.get(symbol, "OHLC", date_time=False)
     open, high, low, close = val.split("|")
     open = float(open.replace(",", ""))
     high = float(high.replace(",", ""))
@@ -50,7 +51,7 @@ def tosOHLCMinute():
 
 
 def tosVolTrailingStopSTUDY(symbol):
-    val, times = block.get(symbol, "CUSTOM5", date_time=True)
+    val, times = block.get(symbol, "VOLTSTUDY", date_time=True)
     if val == "1.0":
         return True
     elif val == "-1.0":
@@ -58,28 +59,28 @@ def tosVolTrailingStopSTUDY(symbol):
     tosdb.clean_up()
 
 
-def tosPlotChart():
-    pass
+# def tosPlotChart():
+#     pass
 
-def tosPlotChart():
-    pass
+# def tosPlotChart():
+#     pass
 
-def buyPos():
-    pass
+# def buyPos():
+#     pass
 
-def sellPos():
-    pass
+# def sellPos():
+#     pass
 
-def reversePos():
-    pass
+# def reversePos():
+#     pass
 
-def flattenPos():
-    pass
+# def flattenPos():
+#     pass
 
-def writeCSV():
-    with open('tradelog.csv','a', newline='') as newFile:
-    newFileWriter = csv.writer(newFile)
-    newFileWriter.writerow([1, 'test'])
+# def writeCSV():
+#     with open('tradelog.csv','a', newline='') as newFile:
+#     newFileWriter = csv.writer(newFile)
+#     newFileWriter.writerow([1, 'test'])
 
 
 position_taken = 0  # Position is open or closed
@@ -89,7 +90,7 @@ buy_price = 0
 flatten_price = 0
 
 if __name__ == "__main__":
-    tosPlotChart()
+    # tosPlotChart()
     ticker = "/MES:XCME"
     current_price = getLastPrice(ticker)
 
