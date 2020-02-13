@@ -41,7 +41,7 @@ def tosDBohlc():
 
 
 def tosOHLCMinute(symbol):
-    val = block.get(symbol, "OHLC", date_time=False)
+    val = block.get(symbol, "CUSTOM9", date_time=False)
     open, high, low, close = val.split("|")
     open = float(open.replace(",", ""))
     high = float(high.replace(",", ""))
@@ -51,7 +51,7 @@ def tosOHLCMinute(symbol):
 
 
 def tosVolTrailingStopSTUDY(symbol):
-    val, times = block.get(symbol, "VOLTSTUDY", date_time=True)
+    val, times = block.get(symbol, "CUSTOM5", date_time=True)
     if val == "1.0":
         return True
     elif val == "-1.0":

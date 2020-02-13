@@ -3,10 +3,10 @@ import time
 from tosdb.intervalize import ohlc
 from threading import Thread
 
-tosdb.init(dllpath=r"C:\TOSDataBridge\bin\Release\x64\tos-databridge-0.9-x64.dll")
+test = tosdb.init(dllpath=r"C:\TOSDataBridge\bin\Release\x64\tos-databridge-0.9-x64.dll")
 
 class TradeBot:
-    def __init__(self, ticker):
+    def __init__(self, ticker, test):
         self.ticker = ticker
         self.block = tosdb.TOSDB_DataBlock(100000, True)
         self.ohlcblock = ohlc.tosdb.TOSDB_ThreadSafeDataBlock(100000)
@@ -26,6 +26,7 @@ class TradeBot:
             "CUSTOM5",
             "CUSTOM9",
         )
+        
 
     def getLastPrice(self):
         return self.block.get(self.ticker, "LAST", date_time=True)
@@ -66,8 +67,8 @@ class TradeBot:
     def flattenPos(self):
         pass
 
-MES = TradeBot("/MES:XCME")
+MES = TradeBot("/MES:XCME", test)
 # MYM = TradeBot("/MYM:XCBT")
-
 print(MES.tosOHLCMinute())
+print(MES.tosVolTrailingStopSTUDY())
 
