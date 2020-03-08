@@ -8,9 +8,9 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
 
 pathOfFilesDled = r'C:\\Users\\wikki\\Downloads\\'
-pathToMoveDLFiles = r'C:\\Users\\wikki\\Downloads\\test'
-
-fileDlDone = False
+pathToMoveDLStocks = r'C:\\Users\\wikki\\Downloads\\test'
+pathToMoveDLETF = r'C:\\Users\\wikki\\Downloads\\test'
+pathToMoveDLIndices= r'C:\\Users\\wikki\\Downloads\\test'
 
 def dlData():
     chrome_options = Options()
@@ -34,7 +34,6 @@ def dlData():
     print("Indices")
     driver.find_element_by_xpath("//span[contains(.,'download')]").click()
     driver.quit()
-    fileDlDone = True
 
 def sortData():
     # Open dir where the data is downloaded
