@@ -66,8 +66,7 @@ def sortData():
                 sys.exit()
 
 if __name__ == "__main__":
-    # dlData()
-    # sortData()
-    print("Test")
+    dlData()
+    sortData()
     sys.exit()
         
