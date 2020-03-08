@@ -1,8 +1,16 @@
+import os
+import sys
+import fnmatch
+import shutil
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
 
+pathOfFilesDled = r'C:\\Users\\wikki\\Downloads\\'
+pathToMoveDLFiles = r'C:\\Users\\wikki\\Downloads\\test'
+
+fileDlDone = False
 
 def dlData():
     chrome_options = Options()
@@ -17,6 +25,7 @@ def dlData():
     element.send_keys(password)
     element.send_keys(Keys.RETURN)
     driver.get("https://www.barchart.com/options/unusual-activity/stocks")
+    print("stocks")
     driver.find_element_by_xpath("//span[contains(.,'download')]").click()
     driver.get("https://www.barchart.com/options/unusual-activity/etfs")
     print("etfs")
@@ -25,9 +34,36 @@ def dlData():
     print("Indices")
     driver.find_element_by_xpath("//span[contains(.,'download')]").click()
     driver.quit()
+    fileDlDone = True
 
 def sortData():
-    pass
+    # Open dir where the data is downloaded
+    # search for file with .csv 
+    # search for etf, stocks, indices
+    for f_name in os.listdir(pathOfFilesDled):
+        if fnmatch.fnmatch(f_name, '*-etfs-*-*-*-*-*.csv'):
+            try:
+                shutil.move(pathOfFilesDled + f_name, pathToMoveDLFiles)
+                print("File Moved: " + f_name)
+            except IOError:
+                print("Could not move files")
+                sys.exit()
+        if fnmatch.fnmatch(f_name, '*-indices-*-*-*-*-*.csv'):
+            try:
+                shutil.move(pathOfFilesDled + f_name, pathToMoveDLFiles)
+                print("File Moved: " + f_name)
+            except IOError:
+                print("Could not move files")
+                sys.exit()
+        if fnmatch.fnmatch(f_name, '*-stocks-*-*-*-*-*.csv'):
+            try:
+                shutil.move(pathOfFilesDled + f_name, pathToMoveDLFiles)
+                print("File Moved: " + f_name)
+            except IOError:
+                print("Could not move files")
+                sys.exit()
 
 if __name__ == "__main__":
-     print("test")
+    dlData()
+    sortData()
+        
