@@ -8,9 +8,9 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
 
 pathOfFilesDled = r'C:\\Users\\wikki\\Downloads\\'
-pathToMoveDLStocks = r'C:\\Users\\wikki\\Downloads\\test'
-pathToMoveDLETF = r'C:\\Users\\wikki\\Downloads\\test'
-pathToMoveDLIndices= r'C:\\Users\\wikki\\Downloads\\test'
+pathToMoveDLStocks = r'C:\\Users\\wikki\\Downloads\\test\\'
+pathToMoveDLETF = r'C:\\Users\\wikki\\Downloads\\test\\'
+pathToMoveDLIndices= r'C:\\Users\\wikki\\Downloads\\test\\'
 
 def dlData():
     chrome_options = Options()
@@ -42,27 +42,27 @@ def sortData():
     for f_name in os.listdir(pathOfFilesDled):
         if fnmatch.fnmatch(f_name, '*-etfs-*-*-*-*-*.csv'):
             try:
-                shutil.move(pathOfFilesDled + f_name, pathToMoveDLFiles)
+                shutil.move(pathOfFilesDled + f_name, pathToMoveDLETF)
                 print("File Moved: " + f_name)
             except IOError:
                 print("Could not move files")
                 sys.exit()
         if fnmatch.fnmatch(f_name, '*-indices-*-*-*-*-*.csv'):
             try:
-                shutil.move(pathOfFilesDled + f_name, pathToMoveDLFiles)
+                shutil.move(pathOfFilesDled + f_name, pathToMoveDLIndices)
                 print("File Moved: " + f_name)
             except IOError:
                 print("Could not move files")
                 sys.exit()
         if fnmatch.fnmatch(f_name, '*-stocks-*-*-*-*-*.csv'):
             try:
-                shutil.move(pathOfFilesDled + f_name, pathToMoveDLFiles)
+                shutil.move(pathOfFilesDled + f_name, pathToMoveDLStocks)
                 print("File Moved: " + f_name)
             except IOError:
                 print("Could not move files")
                 sys.exit()
 
 if __name__ == "__main__":
-    dlData()
+    # dlData()
     sortData()
         
