@@ -2,22 +2,24 @@ import os
 import sys
 import fnmatch
 import shutil
+import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
 
-pathOfFilesDled = r'C:\\Users\\wikki\\Downloads\\'
-pathToMoveDLStocks = r'C:\\Users\\wikki\\Downloads\\test\\'
-pathToMoveDLETF = r'C:\\Users\\wikki\\Downloads\\test\\'
-pathToMoveDLIndices= r'C:\\Users\\wikki\\Downloads\\test\\'
+user_name = ''
+password = ''
+
+pathOfFilesDled = r'C:\\Users\\ChadBot\\Downloads\\'
+pathToMoveDLStocks = r'C:\\Users\\ChadBot\\Desktop\\ChadBot\\barchart\\Stocks\\'
+pathToMoveDLETF = r'C:\\Users\\ChadBot\\Desktop\\ChadBot\\barchart\\ETF\\'
+pathToMoveDLIndices= r'C:\\Users\\ChadBot\\Desktop\\ChadBot\\barchart\\Indices\\'
 
 def dlData():
     chrome_options = Options()
     # chrome_options.add_argument("start-minimized")
     driver = webdriver.Chrome(r'C:\chromedriver.exe', options=chrome_options)
-    user_name = ''
-    password = ''
     driver.get("https://www.barchart.com/login")
     element = driver.find_element_by_name("email")
     element.send_keys(user_name)
@@ -27,12 +29,15 @@ def dlData():
     driver.get("https://www.barchart.com/options/unusual-activity/stocks")
     print("stocks")
     driver.find_element_by_xpath("//span[contains(.,'download')]").click()
+    time.sleep(5)
     driver.get("https://www.barchart.com/options/unusual-activity/etfs")
     print("etfs")
     driver.find_element_by_xpath("//span[contains(.,'download')]").click()
+    time.sleep(5)
     driver.get("https://www.barchart.com/options/unusual-activity/indices")
     print("Indices")
     driver.find_element_by_xpath("//span[contains(.,'download')]").click()
+    time.sleep(5)
     driver.quit()
 
 def sortData():
@@ -63,6 +68,6 @@ def sortData():
                 sys.exit()
 
 if __name__ == "__main__":
-    # dlData()
+    dlData()
     sortData()
         
