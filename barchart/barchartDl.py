@@ -9,9 +9,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
 
-user_name = ''
-password = ''
-
 pathOfFilesDled = r'C:\\Users\\ChadBot\\Downloads\\'
 pathToMoveDLStocks = r'C:\\Users\\ChadBot\\Desktop\\ChadBot\\barchart\\Stocks\\'
 pathToMoveDLETF = r'C:\\Users\\ChadBot\\Desktop\\ChadBot\\barchart\\ETF\\'
