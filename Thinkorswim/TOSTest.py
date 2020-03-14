@@ -82,92 +82,122 @@ def tosVolTrailingStopSTUDY(symbol):
 #     newFileWriter = csv.writer(newFile)
 #     newFileWriter.writerow([1, 'test'])
 
+botStart = True
 
-position_taken = 0  # Position is open or closed
-trades_taken = 0  # How many trades taken long and short combined.
-current_trade = ""  # Current position of long or trade closed
-buy_price = 0
-flatten_price = 0
+inTrade = False
+position_type = ""
+entry_price = 0
+exit_price = 0
+tradeCounter = 0
+
+PL = entry_price - exit_price * 50
+
 
 if __name__ == "__main__":
-    # tosPlotChart()
     ticker = "/MES:XCME"
     current_price = getLastPrice(ticker)
+    lastSignal = tosVolTrailingStopSTUDY(ticker)
+
+    """
+    Check first thing if bot just started is True
+    Get the trade signal from TOS and set it as lastSignal
+    Keep checking for signal change until lastSignal != tosVolTrailingStopSTUDY(ticker)
+    Go into TRADING LOOP
+    """
+    # while True:
+    #     print("Starting Bot")
+    #     print("Checking for change in Trade Signal to start New Trade")
+    #     if botStart is True and lastSignal != tosVolTrailingStopSTUDY(ticker):
+    #         print("Value Changed")
+    #         print("Trading Started")
+    #         botStart = False
+    #         # Bring TOS Window to front here
+    #         while True:
+    #             # insert trading logic here
+    #             pass
 
     while True:
-        """
-        if signal is long(True) and postion is not taken
-        Increase trade count
-        Take position
-        Set the trade Long
-        """
-        if tosVolTrailingStopSTUDY(ticker) == True and position_taken != 1:
-            trades_taken += 1
-            position_taken = 1
-            current_trade = "Long"
-            buy_price = getLastPrice(ticker)
-            print("Trade Taken")
-            print(
-                "Trades"
-                + " | "
-                + "Position"
-                + " | "
-                + "Current Signal"
-                + " | "
-                + "Buy Price"
-            )
-            print(trades_taken, position_taken, current_trade, buy_price)
-            print(" ")
 
-        """
-        if signal is long(true) and postion is already taken
-        output the positions
-        """
-        if tosVolTrailingStopSTUDY(ticker) == True and position_taken == 1:
-            print("Existing Positions ")
-            print(
-                "Trades"
-                + " | "
-                + "Position"
-                + " | "
-                + "Current Signal"
-                + " | "
-                + "Buy Price"
-            )
-            print(trades_taken, position_taken, current_trade, buy_price)
-            print(" ")
 
-        """
-        if signal is Short(False) and position is taken
-        set position taken to closed 
-        """
-        if tosVolTrailingStopSTUDY(ticker) == False and position_taken == 1:
-            position_taken = 0
-            current_trade = "Trade Closed"
-            flatten_price = getLastPrice(ticker)
-            print("Short Signal Recieved, Trade Closed ")
-            print(
-                "Trades"
-                + " | "
-                + "Position"
-                + " | "
-                + "Current Signal"
-                + " | "
-                + "Flatten Price"
-            )
-            print(trades_taken, position_taken, current_trade, flatten_price)
-            print(" ")
+# if __name__ == "__main__":
+#     # tosPlotChart()
+#     ticker = "/MES:XCME"
+#     current_price = getLastPrice(ticker)
 
-        """
-        if signal is Short(False) and position is not taken
-        output the positions 
-        """
-        if tosVolTrailingStopSTUDY(ticker) == False and position_taken != 1:
-            buy_price = 0
-            flatten_price = 0
-            print("No Trade ")
-            print("Trades" + " | " + "Position" + " | " + "Current Signal")
-            print(trades_taken, position_taken, current_trade)
-            print(" ")
+#     while True:
+#         """
+#         if signal is long(True) and postion is not taken
+#         Increase trade count
+#         Take position
+#         Set the trade Long
+#         """
+#         if tosVolTrailingStopSTUDY(ticker) == True and position_taken != 1:
+#             trades_taken += 1
+#             position_taken = 1
+#             current_trade = "Long"
+#             buy_price = getLastPrice(ticker)
+#             print("Trade Taken")
+#             print(
+#                 "Trades"
+#                 + " | "
+#                 + "Position"
+#                 + " | "
+#                 + "Current Signal"
+#                 + " | "
+#                 + "Buy Price"
+#             )
+#             print(trades_taken, position_taken, current_trade, buy_price)
+#             print(" ")
 
-        time.sleep(5)
+#         """
+#         if signal is long(true) and postion is already taken
+#         output the positions
+#         """
+#         if tosVolTrailingStopSTUDY(ticker) == True and position_taken == 1:
+#             print("Existing Positions ")
+#             print(
+#                 "Trades"
+#                 + " | "
+#                 + "Position"
+#                 + " | "
+#                 + "Current Signal"
+#                 + " | "
+#                 + "Buy Price"
+#             )
+#             print(trades_taken, position_taken, current_trade, buy_price)
+#             print(" ")
+
+#         """
+#         if signal is Short(False) and position is taken
+#         set position taken to closed 
+#         """
+#         if tosVolTrailingStopSTUDY(ticker) == False and position_taken == 1:
+#             position_taken = 0
+#             current_trade = "Trade Closed"
+#             flatten_price = getLastPrice(ticker)
+#             print("Short Signal Recieved, Trade Closed ")
+#             print(
+#                 "Trades"
+#                 + " | "
+#                 + "Position"
+#                 + " | "
+#                 + "Current Signal"
+#                 + " | "
+#                 + "Flatten Price"
+#             )
+#             print(trades_taken, position_taken, current_trade, flatten_price)
+#             print(" ")
+
+#         """
+#         if signal is Short(False) and position is not taken
+#         output the positions 
+#         """
+#         if tosVolTrailingStopSTUDY(ticker) == False and position_taken != 1:
+#             buy_price = 0
+#             flatten_price = 0
+#             print("No Trade ")
+#             print("Trades" + " | " + "Position" + " | " + "Current Signal")
+#             print(trades_taken, position_taken, current_trade)
+#             print(" ")
+
+#         time.sleep(5)
