@@ -119,10 +119,16 @@ if __name__ == "__main__":
             position_type = "Long"
             entry_price = getLastPrice(ticker)
             tradeCounter += 1
-
-
-
-
+            buy()
+        
+        if tosVolTrailingStopSTUDY(ticker) is False and inTrade is False:
+            inTrade = True
+            position_type = "Short"
+            entry_price = getLastPrice(ticker)
+            tradeCounter += 1
+            sell()
+        
+        
 
 # if __name__ == "__main__":
 #     # tosPlotChart()
