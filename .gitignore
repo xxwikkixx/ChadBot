@@ -10,3 +10,4 @@ gen
 .vscode/
 config.py
 __pycache__/
+debug.log
