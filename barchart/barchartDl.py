@@ -18,9 +18,9 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
 
 pathOfFilesDled = r'C:\\Users\\ChadBot\\Downloads\\'
-pathToMoveDLStocks = r'C:\\Users\\ChadBot\\Desktop\\ChadBot\\barchart\\Stocks\\'
-pathToMoveDLETF = r'C:\\Users\\ChadBot\\Desktop\\ChadBot\\barchart\\ETF\\'
-pathToMoveDLIndices= r'C:\\Users\\ChadBot\\Desktop\\ChadBot\\barchart\\Indices\\'
+pathToMoveDLStocks = r'C:\Users\\ChadBot\\Desktop\\barchartdata\\Stocks\\'
+pathToMoveDLETF = r'C:\Users\\ChadBot\\Desktop\\barchartdata\\ETF\\'
+pathToMoveDLIndices= r'C:\Users\\ChadBot\\Desktop\\barchartdata\\Indices\\'
 
 def dlData():
     chrome_options = Options()
