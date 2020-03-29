@@ -58,21 +58,21 @@ def sortData():
     for f_name in os.listdir(pathOfFilesDled):
         if fnmatch.fnmatch(f_name, '*-etfs-*-*-*-*-*.csv'):
             try:
-                shutil.move(pathOfFilesDled + f_name, pathToMoveDLETF)
+                shutil.copy(pathOfFilesDled + f_name, pathToMoveDLETF)
                 print("File Moved: " + f_name)
             except IOError:
                 print("Could not move files")
                 sys.exit()
         if fnmatch.fnmatch(f_name, '*-indices-*-*-*-*-*.csv'):
             try:
-                shutil.move(pathOfFilesDled + f_name, pathToMoveDLIndices)
+                shutil.copy(pathOfFilesDled + f_name, pathToMoveDLIndices)
                 print("File Moved: " + f_name)
             except IOError:
                 print("Could not move files")
                 sys.exit()
         if fnmatch.fnmatch(f_name, '*-stocks-*-*-*-*-*.csv'):
             try:
-                shutil.move(pathOfFilesDled + f_name, pathToMoveDLStocks)
+                shutil.copy(pathOfFilesDled + f_name, pathToMoveDLStocks)
                 print("File Moved: " + f_name)
             except IOError:
                 print("Could not move files")
