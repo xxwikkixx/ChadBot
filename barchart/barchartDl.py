@@ -131,52 +131,32 @@ def cleanUpExistingData():
             except ValueError as e:
                 print(e)
     
-
+'''
+Open the downloaded files 
+append them to respective tables on the db 
+'''
 def POSTtoDB():
-    etfPath = r"A:\\git\\ChadBot\\barchart\\ETF\\"
-    indicesPath = r"A:\\git\\ChadBot\\barchart\\Indices\\"
-    stockPath = r"A:\\git\\ChadBot\\barchart\\Stocks\\"
-
+    filesPath = r"A:\\git\\ChadBot\\barchart\\unusual-etfs-options-activity-02-19-2020.csv"
     db = mysql.connect(
         host = cfg.dbLogin['host'],
         user = cfg.dbLogin['user'],
         password = cfg.dbLogin['pass'],
-        database = 'barchart'
+        database = 'test'
     )
     cursor = db.cursor()
-    cursor.execute("SHOW TABLES")
-    databases = cursor.fetchall()
-    print(databases)
-    # df = pd.read_csv(stockPath + 'unusual-stocks-options-activity-02-14-2020.csv')
-    with open(stockPath + 'unusual-stocks-options-activity-02-14-2020.csv') as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        for row in csv_reader:
-            print(row)
-            Date_Inserted = row[0]
-            Symbol= row[1]
-            Price= row[2]
-            Type= row[3]
-            Strike= row[4]
-            Exp_Date= row[5]
-            DTE= row[6]
-            Bid= row[7]
-            Midpoint= row[8]
-            Ask= row[9]
-            Last= row[10]
-            Volume= row[11]
-            Open_Int= row[12]
-            Vol_OI= row[13]
-            IV= row[14]
-            Time= row[15]
-            cursor.execute('''INSERT INTO stocks(Date_Inserted, Symbol, Price, Type, Strike, Exp_Date, DTE, Bid, Midpoint, Ask, Last, Volume, Open_Int, Vol_OI, IV, Time) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)''',(row))
-            cursor.commit()
+    # cursor.execute("CREATE TABLE users (name VARCHAR(255), user_name VARCHAR(255))")
+
+    df = pd.read_csv(filesPath)
+    print(df.head)
+
+    df.to_sql(con=db,schema='test', name='etf', index=False, if_exists='append')
 
 
 if __name__ == "__main__":
-    dlData()
-    sortData()
-    sys.exit()
+    # dlData()
+    # sortData()
+    # sys.exit()
 
-    # POSTtoDB()
+    POSTtoDB()
     # cleanUpExistingData()
 
