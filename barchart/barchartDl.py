@@ -150,10 +150,10 @@ def POSTtoDB():
     df = pd.read_csv(filesPath)
     print(df.head)
 
-    # Connect to time series influxDB 
-    client = InfluxDBClient(host=cfg.dbLogin['host'], port=cfg.dbLogin['port'])
-    # Get the influd dbs on the server
-    print(client.get_list_database())
+    # # Connect to time series influxDB 
+    # client = InfluxDBClient(host=cfg.dbLogin['host'], port=cfg.dbLogin['port'])
+    # # Get the influd dbs on the server
+    # print(client.get_list_database())
 
     
 
