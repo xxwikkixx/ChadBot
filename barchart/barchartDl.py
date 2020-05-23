@@ -13,6 +13,7 @@ import sqlalchemy
 from datetime import datetime
 from dateutil.parser import parse
 from selenium import webdriver
+from influxdb import InfluxDBClient
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
@@ -136,20 +137,27 @@ Open the downloaded files
 append them to respective tables on the db 
 '''
 def POSTtoDB():
-    filesPath = r"A:\\git\\ChadBot\\barchart\\unusual-etfs-options-activity-02-19-2020.csv"
-    db = mysql.connect(
-        host = cfg.dbLogin['host'],
-        user = cfg.dbLogin['user'],
-        password = cfg.dbLogin['pass'],
-        database = 'test'
-    )
-    cursor = db.cursor()
+    filesPath = r"A:\\git\\ChadBot\\barchart\\unusual-stocks-options-activity-05-22-2020.csv"
+    # db = mysql.connect(
+    #     host = cfg.dbLogin['host'],
+    #     user = cfg.dbLogin['user'],
+    #     password = cfg.dbLogin['pass'],
+    #     database = 'test'
+    # )
+    # cursor = db.cursor()
     # cursor.execute("CREATE TABLE users (name VARCHAR(255), user_name VARCHAR(255))")
 
     df = pd.read_csv(filesPath)
     print(df.head)
 
-    df.to_sql(con=db,schema='test', name='etf', index=False, if_exists='append')
+    # Connect to time series influxDB 
+    client = InfluxDBClient(host=cfg.dbLogin['host'], port=cfg.dbLogin['port'])
+    # Get the influd dbs on the server
+    print(client.get_list_database())
+
+    
+
+
 
 
 if __name__ == "__main__":
@@ -159,4 +167,3 @@ if __name__ == "__main__":
 
     POSTtoDB()
     # cleanUpExistingData()
-
